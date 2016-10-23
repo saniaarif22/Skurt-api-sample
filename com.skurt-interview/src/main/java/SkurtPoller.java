@@ -8,7 +8,6 @@ import service.PollingService;
 import service.SkurtAPIService;
 
 public class SkurtPoller {
-	//TODO: Check for nulls 
 	public static void main(String args[]) {
 		Queue<Vehicle> vehicleQueue = new LinkedList<Vehicle>();
 		SkurtAPIService skurtAPIservice = new SkurtAPIService();
@@ -19,11 +18,13 @@ public class SkurtPoller {
 		 * and adding to a queue */
 		for(int i = 1; i<= 10; i++) {
 			InputStream is = skurtAPIservice.sendRequest(i);
-			Vehicle vehicle = parserService.parse(i, is);
-			vehicleQueue.add(vehicle);
-		}
+			if (is != null) {
+				Vehicle vehicle = parserService.parse(i, is);
+				if (vehicle != null)
+					vehicleQueue.add(vehicle);
+				}
+			}
 		System.out.println("Vehicle queue size in main: " + vehicleQueue.size());
-		
 		PollingService pollingService = new PollingService(vehicleQueue);
 		System.out.println("Vehicle queue size of pollingService in main: " + pollingService.vehicleQueue.size());
 		pollingService.monitor();
