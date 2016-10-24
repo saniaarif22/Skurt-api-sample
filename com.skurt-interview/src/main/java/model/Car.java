@@ -22,9 +22,17 @@ public class Car implements Vehicle {
 
 	/* Check if given coordinates are in the range polygon */
 	private boolean contains(Polygon poly, Coordinates co_od) {
-
+		int i, j;
 		boolean result = false;
-		
+		for(i = 0, j = poly.vertices.size() - 1; i < poly.vertices.size(); j = i++) {
+			if((poly.vertices.get(i).y > co_od.y) != (poly.vertices.get(j).y > co_od.y) &&
+					(co_od.x < (poly.vertices.get(j).x - poly.vertices.get(i).x) * 
+							(co_od.y - poly.vertices.get(i).y) / 
+							(poly.vertices.get(j).y - poly.vertices.get(i).y) 
+							+ poly.vertices.get(i).x)) {
+				result = !result;
+			}
+		}
 		return result;
 	}
 
