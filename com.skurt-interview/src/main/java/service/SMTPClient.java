@@ -16,6 +16,7 @@ public class SMTPClient {
 	/* Populate fields as required */
 	private static final String TO_ADDRESS = "";
 	private static String FROM = "";
+	private static String HOST = "smtp.gmail.com";
 	private static String PASSWORD = "";
 
 	/* Standard java mail code stub to send an e-mail */
@@ -23,7 +24,7 @@ public class SMTPClient {
 		Properties props = System.getProperties();
 		props.setProperty("mail.smtp.host", HOST);
 		props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.host", HOST);
         props.put("mail.smtp.user", FROM);
         props.put("mail.smtp.password", PASSWORD);
         props.put("mail.smtp.port", "587");
@@ -44,6 +45,7 @@ public class SMTPClient {
             transport.connect(HOST, FROM, PASSWORD);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
+            System.out.println("Send message Success!");
             /* E-mail alert sent */
             return true;
 		} catch (MessagingException mex) {
