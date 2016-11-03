@@ -51,11 +51,30 @@ public class ParserService {
 		
 		JSONArray coordsArray = (JSONArray)jsonParser.parse(pointArray.get(0).toString());
 		
-
+		for(Object o : coordsArray) {
+			JSONArray jo = (JSONArray)jsonParser.parse(o.toString());
+			polygonCoordinates.add(extractCoordinates(jo));
+		}
+		
+		/* System.out.println("Length: " + polygonCoordinates.size()); */
+		
+		coordinates = extractCoordinates(coodArray);
+		polygon = new Polygon(polygonCoordinates);
+		
+		return new Car(vehicle_id, coordinates, polygon);
 		} catch (Exception e) {
 			/* Any JSON parse errors */
 			e.printStackTrace();
+			return new Car(vehicle_id, coordinates, polygon);
 		}
 	}
 	
+	private Coordinates extractCoordinates (JSONArray coodArray) {
+		double co_od_x = (Double) (coodArray).get(0);
+		double co_od_y = (Double) (coodArray).get(1);
+		/* System.out.println("X: " + co_od_x + " Y: " + co_od_y); */
+		return new Coordinates(co_od_x, co_od_y);
+		
+	}
+
 }
