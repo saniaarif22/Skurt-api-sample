@@ -58,12 +58,4 @@ public class ParserService {
 		}
 	}
 	
-	private Coordinates extractCoordinates (JSONArray coodArray) {
-		double co_od_x = (Double) (coodArray).get(0);
-		double co_od_y = (Double) (coodArray).get(1);
-		/* System.out.println("X: " + co_od_x + " Y: " + co_od_y); */
-		return new Coordinates(co_od_x, co_od_y);
-		
-	}
-
 }
