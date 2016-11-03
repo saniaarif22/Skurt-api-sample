@@ -18,7 +18,12 @@ public class SkurtAPIService {
 			conn.setRequestProperty("Accept", "application/json");
 			
 			 if (conn.getResponseCode() == 200) {
+				 System.out.println("Response code: " + conn.getResponseCode());
 				 is = conn.getInputStream();
+			 } else {
+				 System.out.println("Response code" + conn.getResponseCode() 
+					+ "for Vehicle" + vehicle_id);
+				 //TODO: alert Skurt that their service isn't working
 			 }
 			 return is;
 		} catch (Exception e) {
